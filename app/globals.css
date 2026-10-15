@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  font-family: Inter, 'Noto Sans Mongolian', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --color-primary: #0F766E;
+  --color-primary-dark: #115E59;
+  --color-bg: #F8FAFC;
+  --color-sidebar: #053B40;
+  --color-text: #0F172A;
+  --color-muted: #64748B;
+  --color-border: #E2E8F0;
+}
+
+html {
+  background: var(--color-bg);
+}
+
+/* Score print modal (ScanPrintPanel/PrintScoreModal) — portalled straight
+   onto <body>, so printing hides everything else and prints only its
+   officially-formatted content, landscape, in A4. */
+@media print {
+  body > *:not(.print-portal) {
+    display: none !important;
+  }
+}
+@page {
+  size: A4 landscape;
+  margin: 12mm;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, button, textarea, select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid rgba(15, 118, 110, 0.55);
+  outline-offset: 2px;
+}
+
+/* Decorative gradients (teal) */
+.gradient-bg {
+  background: linear-gradient(135deg, #10B981 0%, #14B8A6 100%);
+}
+
+.sidebar-active {
+  background: linear-gradient(135deg, #10B981 0%, #14B8A6 100%);
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.30);
+}
+
+.card-surface {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+/* Status badges — soft pills with a subtle ring */
+.badge-gray   { background: #F1F5F9; color: #475569; box-shadow: inset 0 0 0 1px #E2E8F0; }
+.badge-blue   { background: #EFF6FF; color: #2563EB; box-shadow: inset 0 0 0 1px #DBEAFE; }
+.badge-cyan   { background: #ECFEFF; color: #0E7490; box-shadow: inset 0 0 0 1px #CFFAFE; }
+.badge-yellow { background: #FFFBEB; color: #B45309; box-shadow: inset 0 0 0 1px #FDE68A; }
+.badge-orange { background: #FFF7ED; color: #C2410C; box-shadow: inset 0 0 0 1px #FED7AA; }
+.badge-purple { background: #F5F3FF; color: #7C3AED; box-shadow: inset 0 0 0 1px #DDD6FE; }
+.badge-green  { background: #ECFDF5; color: #047857; box-shadow: inset 0 0 0 1px #A7F3D0; }
+.badge-red    { background: #FEF2F2; color: #DC2626; box-shadow: inset 0 0 0 1px #FECACA; }
+
+.shadow-soft { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.05); }
+
+/* Thin, unobtrusive scrollbar for the sidebar */
+.sidebar-scroll::-webkit-scrollbar { width: 6px; }
+.sidebar-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.14); border-radius: 9999px; }
+.sidebar-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* Branded Leaflet markers + popups — see lib/mapMarkers.ts */
+.leaflet-container {
+  font-family: inherit;
+  /* Contain Leaflet's internal z-index (controls sit at 1000) inside its own
+     stacking context so it can never render above sticky headers/dropdowns. */
+  isolation: isolate;
+}
+
+.map-pin-icon {
+  background: transparent;
+  border: none;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 10px 30px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  width: auto !important;
+  min-width: 168px;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.map-popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 7px 9px;
+  background: #F8FAFC;
+  border-left: 3px solid #0F766E;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.map-popup-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.25;
+}
+
+.map-popup-badge {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #0F766E;
+  background: #ECFDF5;
+  box-shadow: inset 0 0 0 1px #A7F3D0;
+  border-radius: 9999px;
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+
+.map-popup-body {
+  padding: 7px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.map-popup-row {
+  display: flex;
+  gap: 6px;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.map-popup-label {
+  flex-shrink: 0;
+  color: #64748B;
+  min-width: 68px;
+}
+
+.map-popup-value {
+  color: #0F172A;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.map-popup-empty {
+  color: #94A3B8;
+  font-size: 11px;
+}
+
+.map-popup-photos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.map-popup-photo-link {
+  display: block;
+  overflow: hidden;
+  border-radius: 7px;
+  background: #F1F5F9;
+  box-shadow: inset 0 0 0 1px #E2E8F0;
+}
+
+.map-popup-photo {
+  display: block;
+  width: 100%;
+  height: 74px;
+  object-fit: cover;
+}
+
+.map-popup-link {
+  display: block;
+  margin: 2px 9px 9px;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: #0F766E;
+  color: #ffffff !important;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none !important;
+  transition: background-color 0.15s ease;
+}
+
+.map-popup-link:hover {
+  background: #115E59;
+}
+
+/* Company monitoring map — clustering, floating control panel, zoom control */
+.company-cluster-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  background: #0F172A;
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.12), 0 3px 8px rgba(15, 23, 42, 0.3);
+}
+
+.leaflet-control-zoom.map-zoom-control {
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 10px 24px rgba(15, 23, 42, 0.1) !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom.map-zoom-control a {
+  width: 34px !important;
+  height: 34px !important;
+  line-height: 34px !important;
+  color: #0F172A !important;
+  background: #ffffff !important;
+  border: none !important;
+}
+
+.leaflet-control-zoom.map-zoom-control a:hover {
+  background: #F0FDFA !important;
+  color: #0F766E !important;
+}

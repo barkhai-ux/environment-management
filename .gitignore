@@ -1,0 +1,43 @@
+# .gitignore
+
+# dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# testing
+/.coverage
+
+# production
+/.next
+/out
+/dist
+/build
+
+# misc
+.DS_Store
+*.pem
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# environment variables
+.env
+.env.local
+.env.*.local
+env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+
+# uploaded attachments (local test files)
+/public/uploads
